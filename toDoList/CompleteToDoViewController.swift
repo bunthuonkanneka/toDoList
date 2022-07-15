@@ -10,16 +10,21 @@ import UIKit
 class CompleteToDoViewController: UIViewController {
     
     var previousVC = ToDoTableViewController()
-    var selectedToDo = ToDo()
+    var selectedToDo : ToDoCD?
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBAction func completeTapped(_ sender: Any) {
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            if let theToDo = selectedToDo {
+              context.delete(theToDo)
+              navigationController?.popViewController(animated: true)
+            }
     }
-    override func viewDidLoad() {
+        
+        func viewDidLoad() {
       super.viewDidLoad()
 
-      titleLabel.text = selectedToDo.name
-    }
+        titleLabel.text = selectedToDo?.name    }
     
 
     /*
@@ -31,5 +36,5 @@ class CompleteToDoViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    }
 }
